@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang='en-US'>
+  <head>
+    <meta charset='UTF-8'/>
+    <meta name='viewport' content='width=device-width'/>
+    <title>Test Page</title>
+  </head>
+  <body>
+    <textarea id="message"></textarea>
+    <button id="alert">Alert</button>
+    <script>
+      let displayAlert = function() {
+        let message = document.getElementById('message').value;
+        alert(message);
+      }
+      document.addEventListener('DOMContentLoaded', () => {
+        let button = document.getElementById('alert');
+        button.addEventListener('click', displayAlert);
+      });
+
+    </script>
+  </body>
+</html>
+
+<!-- 
+1. Identify the event we need to handle: 
+     -The event is a user click
+2. The element that will receive the event:
+     -The alert button
+3. Function call when event occurs
+function displayAlert(event) {
+  let message = document.getElementById('message').value;
+  alert(message);
+}
+4. register as event listener
+document.addEventListener('DOMContentLoaded', () => {
+  let button = document.getElementById('alert');
+  button.addEventListener('click', displayAlert);
+});
+-->
