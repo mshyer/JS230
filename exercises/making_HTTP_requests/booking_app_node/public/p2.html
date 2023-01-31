@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>P2</title>
+  </head>
+  <body>
+    <script>
+      function retrieveSchedules() {
+        let request = new XMLHttpRequest();
+        request.timeout = 2500;
+        request.open('GET', '/api/schedules');
+        request.responseType = 'json';
+
+        request.addEventListener('load', () => {
+          let response = request.response;
+          //console.log(request.response);
+          //console.log(request.response.length);
+          //console.log(response[0]);
+          //console.log(response[0].staff_id);
+          if (response.length === 0) {
+            alert('no schedules!');
+          }
+          let tally = {};
+          for (let booking of response) {
+            tally[booking.staff_id] = tally[booking.staff_id] + 1 || 0;
+          }
+          console.log(tally);
+          return tally;
+
+        });
+        request.addEventListener('timeout', () => {
+          console.log('there was a timeout');
+        });
+        request.addEventListener('loadend', event => {
+          console.log('the request has completed');
+        }
+
+        request.send();
+      }
+      
+      retrieveSchedules();
+
+    </script>
+  </body>
+</html>
