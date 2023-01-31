@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>P4</title>
+  </head>
+  <body>
+      <form action="/api/schedules" method="post" accept-charset="utf-8">
+        <button type='submit'>submit</button>
+        <button id='new_field'>Add a Schedule</button>
+      </form>
+    <script>
+      'use strict';
+      //FUNCTION CREATES NEW FIELDSET AND ADDS TO FORM
+      let form = document.querySelector('form');
+      function attachToForm(element) {
+        form.appendChild(element);
+      }
+
+      class StaffScheduleFieldset {
+        constructor() {
+          StaffScheduleFieldset.count += 1;
+          this.newField = document.createElement('fieldset')
+          let header = document.createElement('h1');
+          header.textContent = 'Schedule ' + StaffScheduleFieldset.count; 
+          this.newField.appendChild(header);
+          this.newField.appendChild(this.createSelect());
+          this.newField.appendChild(this.createDateInput());
+          this.newField.appendChild(this.createTimeInput());
+          attachToForm(this.newField);
+        }
+
+        createSelect() {
+          let staffSelect = document.createElement('select');
+          let selectLabel = document.createElement('label');
+          selectLabel.textContent = 'Staff Name: ';
+          selectLabel.appendChild(staffSelect);
+          this.createOptions(staffSelect);
+          staffSelect.name = 'staff_' + StaffScheduleFieldset.count;
+          return selectLabel;
+        }
+        createOptions(select) {
+          let staff = [];
+          let request = new XMLHttpRequest();
+          request.open('GET', '/api/staff_members');
+          request.timeout = 2000;
+          request.responseType = 'json';
+          request.send();
+          request.addEventListener('load', () => {
+            if (request.status === 200) {
+              request.response.forEach(staffObj => {
+                let option = document.createElement('option');
+                option.textContent = staffObj.name;
+                option.value = staffObj.id;
+                select.appendChild(option);
+              });
+            } else {
+              console.error('request failed');
+            }
+          });
+        }
+        createDateInput() {
+          let dateInput = document.createElement('input');
+          let dateLabel = document.createElement('label');
+          dateLabel.textContent = 'Date: ';
+          dateInput.type = 'date';
+          dateInput.name = 'date_' + StaffScheduleFieldset.count;
+          dateLabel.appendChild(dateInput);
+          return dateLabel;
+        }
+        createTimeInput() {
+          let timeInput = document.createElement('input');
+          let timeLabel = document.createElement('label');
+          timeLabel.appendChild(timeInput);
+          timeInput.type = 'time';
+          timeInput.name = 'time_' + StaffScheduleFieldset.count;
+          return (timeLabel);
+        }
+      }
+      StaffScheduleFieldset.count = 0;
+      new StaffScheduleFieldset();
+      let addScheduleButton = document.querySelector('#new_field');
+      addScheduleButton.addEventListener('click', (event) => {
+        event.preventDefault();
+        new StaffScheduleFieldset();
+      });
+      // new StaffScheduleFieldset();
+      
+      function formInputsToJson() {
+        const json = [];
+
+        for (let i = 0; i < StaffScheduleFieldset.count; i += 1) {
+          let schedule = {};
+          schedule.staff_id = form[`staff_${String(i + 1)}`].value;
+          schedule.date = form[`date_${String(i + 1)}`].value;
+          schedule.time = form[`time_${String(i + 1)}`].value;
+          json.push(schedule);
+        }
+        return {schedules: json};
+      }
+
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const json = JSON.stringify(formInputsToJson());
+        console.log(json);
+
+
+        let request = new XMLHttpRequest();
+        request.open('POST', '/api/schedules');
+        request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+        request.addEventListener('load', (event) => {
+          console.log(request.status);
+          if (request.status === 201) {
+            console.log('omggg');
+            alert('schedules added!');
+          } else {
+            console.error(request.responseText);
+            alert(request.responseText);
+          }
+
+        });
+        request.send(json);
+
+
+
+      });
+
+    </script>
+  </body>
+</html>

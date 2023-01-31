@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>P3</title>
+  </head>
+  <body>
+    <h1>Add Staff</h1>
+    <form action="/api/staff_members" method="post" accept-charset="utf-8">
+      <fieldset>
+        <label>
+          Email:
+          <input type='text' name='email' id='emailInput'>
+        </label>
+        <label>
+          Name:
+          <input type='text' name='name' id='nameInput'>
+        </label>
+        <button type='submit'>Submit</button>
+      </fieldset>
+
+    </form>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        let form = document.querySelector('form');
+        form.addEventListener('submit', (event) => {
+          event.preventDefault();
+          let nameInput = document.getElementById('nameInput');
+          let emailInput = document.querySelector('#emailInput');
+          let name = nameInput.value;
+          let email = emailInput.value;
+
+
+          if (!name || !email) {
+            return alert('Please check inputs');
+          }
+          let keysAndValues = [];
+          let serialName = encodeURIComponent(name);
+          let serialEmail = encodeURIComponent(email);
+          keysAndValues.push(`name=${serialName}`);
+          keysAndValues.push(`email=${serialEmail}`);
+          let data = keysAndValues.join('&');
+
+          let request = new XMLHttpRequest();
+          request.responseType = 'json';
+          request.open('POST', '/api/staff_members');
+          request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+          request.send(data);
+          request.addEventListener('load', () => {
+            if (String(request.status).startsWith('2')) {
+              console.log(request.status);
+              console.log('submit successful');
+            }
+            alert(`Successfully created staff with ID: ${request.response['id']}`);
+
+          });
+          
+        });
+      });
+    </script>
+  </body>
+</html>
