@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>P5</title>
+  </head>
+  <body>
+    <form action="/api/bookings" method="post" accept-charset="utf-8">
+      <h1>Schedules</h1>
+    </form>
+
+    <script>
+      //Requirements for booking a schedule:
+      // id (id of the SCHEDULE)
+      // student_email
+      //Success is 204
+      //FORM has the following:
+        //SELECT menu
+        //EMAIL
+      let form = document.querySelector('form');
+
+      const makeScheduleSelector = function() {
+        const selectLabel = document.createElement('label');
+        selectLabel.textContent = 'Please select one schedule ';
+        const select = document.createElement('select');
+        selectLabel.appendChild(select); 
+        let staffRequest = new XMLHttpRequest();
+        staffRequest.open('GET', '/api/staff_members');
+        staffRequest.responseType = 'json';
+        staffRequest.send();
+        staffRequest.addEventListener('load', (event) => {
+          let staff =  staffRequest.response;
+          let request = new XMLHttpRequest();
+          request.open('GET', '/api/schedules');
+          request.responseType = 'json';
+          request.send();
+
+          request.addEventListener('timeout', (event) => {
+            alert('delay');
+          });
+          request.addEventListener('load', (event) => {
+            request.response.forEach(schedule => {
+              if (!schedule.student_email) {
+                let option = document.createElement('option');
+                option.value = schedule.id;
+                console.log(schedule);
+                let teacherName = (staff.find(teacher => {
+                  return teacher.id === schedule.id;
+                })).name;
+                option.textContent = `${teacherName} | ${schedule.date} | ${schedule.time}`;
+
+                select.appendChild(option);
+            }
+          });
+          select.id = 'select';
+        });
+        });
+        
+        form.appendChild(selectLabel);
+      };
+
+      const makeEmailInput = function() {
+        let label = document.createElement('label');
+        label.textContent = 'Email: ';
+        let emailInput = document.createElement('input');
+        emailInput.type = 'email';
+        emailInput.placeholder = 'enter an email';
+        emailInput.required = true;
+        emailInput.id = 'email_input';
+        label.appendChild(emailInput);
+        form.appendChild(label);
+      }
+
+      makeScheduleSelector();
+      let breakEle = document.createElement('br');
+      form.appendChild(breakEle);
+      makeEmailInput();
+      let submitButton = document.createElement('button');
+      submitButton.type = 'submit';
+      submitButton.textContent = 'submit';
+      form.appendChild(submitButton);
+
+      //Upon submission:
+      //  If the submission is accepted, alert, then reload the page using window.location.href
+      //  If a list of all students doesn't have the email, 
+      //    we get a 404 error ('student does not exist'...)
+      //  Generate a separate form for a new student
+             // email
+             // name
+             //booking sequence (number) unique?
+      //Upon submission of the second form
+      // send a submit event to the first form
+      // reset the form (they do it)
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        let request = new XMLHttpRequest();
+        request.open('POST', '/api/bookings');
+        request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+        let input = document.querySelector('#email_input');
+        let select = document.querySelector('#select');
+        let userInput = input.value;
+        let userSelected = select.value;
+        //console.log(userInput, userSelected);
+        let dataObj = {id: userSelected, student_email: userInput};
+        request.send(JSON.stringify(dataObj));
+        request.addEventListener('load', (event) => {
+          if (request.status === 204) {
+            alert('booked!')
+            window.location.href='/p5.html';
+          } else if (request.status === 404) {
+            alert('Student does not exist');
+            let bookingSequence = extractBookingSequence(request.response);
+            makeNewStudentForm(userInput, bookingSequence);
+            let newStudentForm = document.querySelector('#new_student_form');
+            newStudentForm.addEventListener('submit', (event) => {
+              event.preventDefault();
+              let request = new XMLHttpRequest();
+              request.open('POST', '/api/students');
+              request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+              let email = document.querySelector('#new_student_email').value;
+              let name = document.querySelector('#new_student_name').value;
+              let booking_sequence = document.querySelector('#new_student_booking_sequence').value;
+              let data = { email: email, name: name, booking_sequence: booking_sequence };
+              request.send(JSON.stringify(data));
+              request.addEventListener('load', (event) => {
+                if (request.status === 201) {
+                  alert('Successfully added student!');
+                  document.querySelector('form').dispatchEvent(new Event('submit'));
+                } else if (request.status === 403) {
+                  alert('Must have booking sequence');
+                } else if (request.status === 400) {
+                  alert('Please check inputs');
+                }
+              });
+
+
+            });
+          }
+        });
+
+      });
+      function extractBookingSequence(responseString) {
+        return parseInt(responseString.match(/\d+/)[0], 10);
+      }
+      function makeNewStudentForm(email, bookingSequenceInput) {
+        let newStudentForm = document.createElement('form');
+        newStudentForm.id = 'new_student_form';
+        let header = document.createElement('h1');
+        header.textContent = 'Please provide new student details';
+        newStudentForm.appendChild(header);
+        document.body.appendChild(newStudentForm);
+        let newStudentEmail = document.createElement('input');
+        newStudentEmail.type = 'email';
+        newStudentEmail.id = 'new_student_email';
+        newStudentEmail.value = email;
+        let newStudentName = document.createElement('input');
+        newStudentName.type = 'text';
+        newStudentName.id = 'new_student_name';
+        let bookingSequence = document.createElement('input');
+        bookingSequence.type = 'number';
+        bookingSequence.id = 'new_student_booking_sequence';
+        bookingSequence.value = bookingSequenceInput;
+        let emailLabel = document.createElement('label');
+        let nameLabel = document.createElement('label');
+        let bookingSequenceLabel = document.createElement('label');
+        emailLabel.textContent = 'Email: ';
+        nameLabel.textContent = 'Name: ';
+        bookingSequenceLabel.textContent = 'Booking Sequence';
+        emailLabel.appendChild(newStudentEmail);
+        nameLabel.appendChild(newStudentName);
+        bookingSequenceLabel.appendChild(bookingSequence);
+        let newStudentSubmit = document.createElement('button');
+        newStudentSubmit.type = 'submit';
+        newStudentSubmit.id = 'new_student_submit';
+        newStudentSubmit.textContent = 'submit';
+
+
+        newStudentForm.appendChild(emailLabel);
+        newStudentForm.appendChild(nameLabel);
+        newStudentForm.appendChild(bookingSequenceLabel);
+        newStudentForm.appendChild(newStudentSubmit);
+      }
+
+              
+    </script>
+  </body>
+</html>
