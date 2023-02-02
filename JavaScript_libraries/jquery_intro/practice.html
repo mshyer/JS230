@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Demo</title>
+</head>
+<body>
+    <iframe src='http://techcrunch.com'></iframe>
+    <a href="http://jquery.com/">jQuery</a>
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+    <script>
+      $(document).ready(function() {
+        console.log('ready!');
+      });
+      $(function() {
+        console.log('ready ready');
+      });
+      $(window).on('load', function() {
+        console.log('window loaded!');
+      });
+    </script>
+</body>
+</html>
