@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>your page title goes here</title>
+</head>
+<body>
+ <ul>
+  <li><a href="#">Apples</a></li>
+  <li><a href="#">Bananas</a></li>
+  <li><a href="#">Oranges</a></li>
+ </ul>
+
+ <form action="#" method="post">
+  <fieldset>
+    <input type="text">
+    <input type="submit" value="Choose">
+  </fieldset>
+</form>
+
+ <p>Choose your favorite fruit!</p>
+ <script src='../node_modules/jquery/dist/jquery.js'></script>
+ <script>
+   let $p = $('p');
+   $(document).ready(function() {
+     $('a').click(function(event) {
+       event.preventDefault();
+       let $anchor = $(this); //wrap the DOM element represented by this in jQuery object
+       $p.text($anchor.text());
+     });
+
+     $('form').submit(event => {
+       event.preventDefault();
+       let $input = $(this).find("input[type=text]");
+       $p.text('Your fave fruit is ' + $input.val());
+     });
+   });
+ </script>
+</body>
+</html>

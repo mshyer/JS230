@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Accordion</title>
+</head>
+<body>
+  <h1>Accordion</h1>
+  <form>
+    <input type='text' maxlength ='1' placeholder='Enter some text'>
+    <button type='submit'>Submit</button>
+  </form>
+  <a id='accordion_toggle'>Accordion Toggle</a>
+  <div id='accordion'>
+    <p>Some text</p>
+  </div>
+  <script src='../node_modules/jquery/dist/jquery.js'></script>
+  <script>
+    $(function() {
+      const $accordionToggle = $('#accordion_toggle');
+      const $accordion = $('#accordion');
+      const $submit = $('button[type=submit]');
+      const $input = $('input[type=text]');
+      const $form = $('form');
+      const $p = $('p');
+      let key;
+      $accordionToggle.click(function() {
+        $accordion.slideToggle();
+      });
+
+      $form.submit(function(event) {
+        event.preventDefault();
+        let key = $input.val();
+        console.log(key);
+        $(document).off('keypress').on('keypress', function(event) {
+          console.log(event.key);
+          if (event.key !== key) {
+            return;
+          }
+          $accordionToggle.trigger('click');
+
+        });
+      });
+
+
+    });
+  </script>
+</body>
+</html>
