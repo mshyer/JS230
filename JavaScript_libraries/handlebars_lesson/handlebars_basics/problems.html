@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>your page title goes here</title>
+  <meta charset="utf-8" />
+  <script src='node_modules/jquery/dist/jquery.js'></script>
+  <script src='node_modules/handlebars/dist/handlebars.js'></script>
+</head>
+<body>
+  <h1>Working With Handlebars</h1>
+  <script id='posts' type='text/x-handlebars'>
+    <article>
+      <h1>{{title}}</h1>
+      <p><time>Posted on {{published}}</time></p>
+      {{{body}}}
+      <div style='display: flex; flex-direction: row;'>
+      {{#if tags}}
+        {{#each tags}}
+          {{>tagWrapper id=@index element=this}}
+        {{/each}}
+      {{/if}}
+      </div>
+    </article>
+  </script>
+  <script src='solution.js'></script>
+</body>
+</html>
