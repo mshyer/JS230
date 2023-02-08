@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>your page title goes here</title>
+  <meta charset="utf-8" />
+  <link rel='stylesheet' type='text/css' href='stylesheets/main.css' />
+  <script src='node_modules/handlebars/dist/handlebars.js'></script>
+  <script src='javascripts/programming_languages.js'></script>
+</head>
+<body>
+  <h1 id='site-title'>Programming Languages</h1>
+  <main>
+content
+  </main>
+  <script id='programming_language' type='text/x-handlebars-template'>
+    {{#each languages}}
+    <article id='article-{{name}}' data-name={{name}}>
+    <h1>{{name}}</h1>
+    <p>{{description}}</p>
+    <button id='button-{{name}}' data-name={{name}} class='minimized'>Show More</button>
+    </article>
+    {{/each}}
+  </script>
+</body>
+</html>
