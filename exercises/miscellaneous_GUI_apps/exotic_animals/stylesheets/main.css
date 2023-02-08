@@ -1,0 +1,35 @@
+@import 'whitespace_reset.css';
+main {
+  width: 1000px;
+}
+body {
+  background: teal;
+}
+h1 {
+  font-size: 36px;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+#photogrid {
+}
+
+figure {
+  width: 22%;
+  margin-left: 2%;
+  display: inline-block;
+  margin-bottom: 20px;
+  vertical-align: top;
+  padding: 10px;
+  box-sizing: border-box;
+  background: #fff;
+  border-radius: 3px;
+  position: relative;
+}
+figcaption {
+  display: none;
+}
+
+img {
+  width: 100%;
+}
