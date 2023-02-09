@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>your page title goes here</title>
+  <meta charset="utf-8" />
+  <link rel='stylesheet' type='text/css' href='stylesheets/main.css' />
+  <script src='node_modules/handlebars/dist/handlebars.js'></script>
+  <script src="node_modules/jquery/dist/jquery.js"></script>
+  <script src='javascripts/script.js'></script>
+</head>
+
+<body>
+  <h1>Todos</h1>
+  <div class='overlay'></div>
+  <div class='confirm_wrapper'>
+    <div id='confirm'>
+      <p>Are you sure you want to delete this todo?</p>
+      <a class='confirm'>Yes</a>
+      <a class='reject'>No</a>
+    </div>
+  </div>
+
+  <script type='text/x-handlebars-template' id='todos_template'>
+    <ul id='todos'>
+    {{#each todos}}
+    <li data-id='{{this.id}}'>{{this.title}}
+    <span class='remove'></span>
+    </li>
+    {{/each}}
+    </ul>
+  </script>
+
+</body>
+</html>

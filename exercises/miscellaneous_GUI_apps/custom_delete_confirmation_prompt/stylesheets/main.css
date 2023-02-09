@@ -1,0 +1,126 @@
+@import url('whitespace-reset.css');
+
+body {
+  background: #226543;
+  padding: 25px;
+  z-index: 1;
+}
+h1 {
+  font-size: 36px;
+  color: white;
+}
+
+ul {
+  margin: 10px, 50px;
+  list-style: none;
+  width: 600px;
+}
+li {
+  padding: 16px 20px 0 20px;
+  box-sizing: border-box;
+  position: relative;
+  height: 50px;
+  font-size: 20px;
+  color: black;
+  margin-bottom: 20px;
+  text-indent: 0;
+  border-radius: 5px;
+  background: #ffffff;
+}
+
+.remove {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  display: inline-block;
+  overflow: hidden;
+  transform: rotate(45deg);
+  right: 20px;
+  cursor: pointer;
+}
+
+.remove:hover {
+  width: 24px;
+  height: 24px;
+}
+
+.remove:before, .remove:after {
+  background: #ec5555;
+  content: '';
+  position: absolute;
+}
+
+.remove:before {
+  height: 3px;
+  top: 50%;
+  right: 0;
+  left: 0;
+  margin-top: -1px;
+}
+
+.remove:after {
+  width: 3px;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  margin-left: -1px;
+}
+
+a {
+  box-sizing: border-box;
+  display: inline-block;
+  position: absolute;
+  height: 30px;
+  width: 40px;
+  text-align: center;
+  font-size: 18px;
+  bottom: 30px;
+}
+a.confirm {
+  right: 90px;
+  background: red;
+}
+
+a.reject {
+  right: 45px;
+  background: green;
+}
+
+a:hover {
+  height: 30px;
+  width: 40px;
+  font-size: 20px;
+}
+
+.overlay {
+  display: block;
+  z-index: 2;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  width: 1000px;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.confirm_wrapper {
+  box-sizing: border-box;
+  z-index: 3;
+  position: fixed;
+  background: #fff;
+  height: 200px;
+  width: 400px;
+  top: 200px;
+  left: 50%;
+  margin-left: -200px;
+  padding: 20px;
+}
+
+
+
+
+
+
+
+
