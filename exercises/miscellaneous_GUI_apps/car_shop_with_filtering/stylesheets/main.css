@@ -1,0 +1,42 @@
+@import url('../whitespace-reset.css');
+
+html {
+  display: block;
+  box-sizing: border-box;
+  font-family: serif;
+}
+
+header {
+  background: #e29921;
+  height: 100px;
+  color: white;
+}
+
+h1 {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+div#inventory {
+  margin: 25px;
+}
+
+figure {
+  display: inline-block;
+  width: 200px;
+  height: 150px;
+  margin-bottom: 25px;
+}
+
+img {
+  width: 80%;
+}
+
+button.buy {
+  background: #e29921;
+  color: white;
+  text-align: center;
+  border-radius: 3px;
+  border: none;
+  cursor: pointer;
+}

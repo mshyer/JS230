@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>your page title goes here</title>
+  <meta charset="utf-8" />
+  <link rel='stylesheet' type='text/css' href='stylesheets/main.css' />
+  <script src='node_modules/handlebars/dist/handlebars.js'></script>
+  <script src="node_modules/jquery/dist/jquery.js"></script>
+  <script src='javascripts/script.js'></script>
+</head>
+<body>
+  <header>
+    <h1>Buy Used Cars</h1>
+    <div id='filters'>
+    </div>
+  </header>
+  <main>
+    <div id='inventory'>
+    </div>
+  </main>
+  <script id='filters_template' type='text/x-handlebars-template'>
+    <label for='make_select'>Make</label>
+    <select id='make_select'>
+      <option value=''>All</option>
+      {{#each make}}
+      <option value='{{this}}'>{{this}}</option>
+      {{/each}}
+    </select>
+    <label for='model_select'>Model</label>
+    <select id='model_select'>
+      <option value=''>All</option>
+      {{#each model}}
+      <option value='{{this}}'>{{this}}</option>
+      {{/each}}
+    </select>
+    <label for='price_select'>Price</label>
+    <select id='price_select'>
+      <option value=''>All</option>
+      {{#each price}}
+      <option value='{{this}}'>{{this}}</option>
+      {{/each}}
+
+    </select>
+    <label for='year_select'>Year</label>
+    <select id='year_select'>
+      <option value=''>All</option>
+      {{#each year}}
+      <option value='{{this}}'>{{this}}</option>
+      {{/each}}
+    </select>
+    <a id='filter_button'>Filter</a>
+
+  </script>
+  <script id='inventory_template' type='text/x-handlebars-template'>
+    {{#each cars}}
+    <figure data-make='{{this.make}}' data-model='{{this.model}}
+    data-year='{{this.year}}' data-price='{{this.price}}'>
+    <img src='{{this.image}}'>
+    <figcaption>{{this.make}} {{this.model}}</figcaption>
+    <p>Year: {{this.year}}</p>
+    <p>Price: {{this.price}}</p>
+    <button class='buy'>Buy</button>
+    </figure>
+    {{/each}}
+
+  </script>
+</body>
+</html>
