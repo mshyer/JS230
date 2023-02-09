@@ -1,0 +1,43 @@
+@import url('../whitespace-reset.css');
+
+html {
+  display: block;
+  box-sizing: border-box;
+}
+body {
+  background: #a19123;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  font-size: 72px;
+  font-weight: bold;
+  font-family: sans-serif;
+}
+
+#app {
+  margin-top: 250px;
+}
+
+#controls {
+  display: block;
+  text-align: center;
+}
+
+button {
+  color: white;
+  height: 35px;
+  width: 80px;
+  border-radius: 5px;
+  border: 1px solid white;
+  background: transparent;
+}
+
+button:hover {
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+h1 {
+  text-align: center;
+}
