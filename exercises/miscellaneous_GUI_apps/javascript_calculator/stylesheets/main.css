@@ -1,0 +1,57 @@
+@import url('../whitespace-reset.css');
+
+html {
+  box-sizing: border-box;
+}
+
+body {
+  background: #22596e;
+}
+
+#calculator {
+  margin: 50px auto;
+  width: 450px;
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 15px;
+}
+
+#display {
+  position: relative;
+  height: 125px;
+  padding: 10px;
+  border-bottom: 1px solid #cecece;
+}
+
+#current_operations {
+  position: absolute;
+  top: 40px;
+  right: 20px;
+  font-size: 20px;
+}
+
+#number_display {
+  position: absolute;
+  top: 90px;
+  right: 20px;
+  font-size: 50px;
+}
+
+#buttons {
+  padding: 15px 0;
+  text-align: center;
+}
+
+#buttons a {
+  box-sizing: border-box;
+  border-radius: 4px;
+  display: inline-block;
+  background: #cecece;
+  width: 23%;
+  margin-bottom: 5px;
+  height: 60px;
+  text-align: center;
+  text-decoration: none;
+  color: black;
+  padding-top: 25px;
+}
