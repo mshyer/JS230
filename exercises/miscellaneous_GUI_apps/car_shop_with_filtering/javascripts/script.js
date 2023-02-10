@@ -26,9 +26,9 @@ document.addEventListener('DOMContentLoaded', () => {
         templates.filter(template => template.id === 'inventory_template')[0].text({cars: this.filteredCars}));
 
     },
-    assignFilters(cars) {
+    assignFilters(make = '') {
       filters.insertAdjacentHTML('afterbegin',
-        templates.filter(template => template.id === 'filters_template')[0].text(this.generateCarInfoContext()));
+        templates.filter(template => template.id === 'filters_template')[0].text(this.generateCarInfoContext(make)));
     },
 
     printInventory(cars) {
@@ -61,8 +61,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     },
 
-
-    generateCarInfoContext() {
+    generateCarInfoContext(make) {
+      this.resetCarFilter();
+      if (make) {
+        this.filteredCars = this.filteredCars.filter(car => car.make === make);
+      }
+      
       let carInfo = this.filteredCars.reduce((acc, car) => {
         for (let prop in car) {
           if (!acc[prop]) {
@@ -77,6 +81,34 @@ document.addEventListener('DOMContentLoaded', () => {
       return carInfo;
     },
 
+    handleMakeSelect(e) {
+      //console.log('firing');
+      //if (e.target) {
+      //  console.log('firing');
+      //  filters.replaceChildren();
+      //  this.assignFilters(e.target.value);
+      //  let makeSelect = document.getElementById('make_select');
+      //  makeSelect.addEventListener('select', this.handleMakeSelect.bind(this));
+
+      //}
+      let model_select = document.getElementById('model_select');
+      model_select.replaceChildren();
+      let models = [];
+      cars.forEach(car => {
+        if (!event.target.value || car.make === event.target.value) {
+          models.push(car.model);
+        }
+      });
+      models = [...new Set(models)];
+      models.forEach(model => {
+        let option = document.createElement('option');
+        option.textContent = model;
+        option.value = model;
+        model_select.append(option);
+      });
+
+    },
+
     init(cars) {
       this.cars = cars;
       this.filteredCars = cars;
@@ -84,6 +116,9 @@ document.addEventListener('DOMContentLoaded', () => {
       this.assignFilters();
       this.printInventory(cars);
       filterBtn.addEventListener('click', this.handleFilterBtnClick.bind(this));
+      let makeSelect = document.getElementById('make_select');
+      makeSelect.addEventListener('change', this.handleMakeSelect.bind(this));
+      console.log(makeSelect);
     },
   };
   Object.create(App).init(cars);
