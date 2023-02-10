@@ -1,0 +1,81 @@
+@import url('../whitespace-reset.css');
+
+html{
+  display: block;
+  box-sizing: border-box;
+  font-family: serif;
+  font-weight: bold;
+}
+
+body {
+  background: #55f;
+  overflow: auto;
+}
+
+h1 {
+  font-size: 3em;
+}
+
+h1#site_title {
+  color: white;
+  margin: 20px auto 0px auto;
+  text-align: center;
+}
+
+#editor {
+  width: 750px;
+  min-height: 500px;
+  background: #fff;
+  margin: 0 auto;
+}
+
+#controls {
+  margin-top: 60px;
+  padding: 5px;
+  background: #cecece;
+
+}
+
+#controls i {
+  display: inline-block;
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 3px;
+}
+
+#controls i:hover {
+  background: white;
+
+}
+
+#user_text {
+  width: 750px;
+  min-height: inherit;
+  background: #fff;
+}
+
+#user_text:focus {
+  outline: none;
+}
+
+.align-center {
+  display: block;
+  text-align: center;
+}
+
+.align-left {
+  display: block;
+  text-align: left;
+}
+
+.align-right {
+  display: block;
+  text-align: right;
+}
+
+.align-justify {
+  display: block;
+  text-align: justify;
+}
+
+
