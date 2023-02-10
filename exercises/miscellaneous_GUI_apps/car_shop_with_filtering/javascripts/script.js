@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+  Handlebars.registerPartial('model_options_template', document.getElementById('model_options_template').innerHTML);
   const filters = document.getElementById('filters');
   const inventory = document.getElementById('inventory');
   const templates = [];
@@ -100,12 +101,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
       models = [...new Set(models)];
-      models.forEach(model => {
-        let option = document.createElement('option');
-        option.textContent = model;
-        option.value = model;
-        model_select.append(option);
-      });
+      // models.forEach(model => {
+      //   let option = document.createElement('option');
+      //   option.textContent = model;
+      //   option.value = model;
+      //   model_select.append(option);
+      // });
+      let templateScript = Handlebars.compile(document.getElementById('model_options_template').innerHTML);
+      let options2 = {model: models};
+      console.log('woo');
+      console.log(options2);
+      model_select.insertAdjacentHTML('beforeend', templateScript(options2));
 
     },
 

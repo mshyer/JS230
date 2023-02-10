@@ -31,10 +31,7 @@
     </select>
     <label for='model_select'>Model</label>
     <select id='model_select'>
-      <option value=''>All</option>
-      {{#each model}}
-      <option value='{{this}}'>{{this}}</option>
-      {{/each}}
+      {{> model_options_template}}
     </select>
     <label for='price_select'>Price</label>
     <select id='price_select'>
@@ -51,6 +48,12 @@
       <option value='{{this}}'>{{this}}</option>
       {{/each}}
     </select>
+  </script>
+  <script id='model_options_template' type='text/x-handlebars-template'>
+    <option value=''>All</option>
+    {{#each model}}
+      <option value='{{this}}'>{{this}}</option>
+    {{/each}}
   </script>
   <script id='inventory_template' type='text/x-handlebars-template'>
     {{#each cars}}
