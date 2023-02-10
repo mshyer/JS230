@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const filters = document.getElementById('filters');
   const inventory = document.getElementById('inventory');
   const templates = [];
+  const filterBtn = document.querySelector('#filter_button');
   let templateScripts = document.querySelectorAll("script[type='text/x-handlebars-template']");
   templateScripts.forEach(template => {
     templates.push({id: template.id, text: Handlebars.compile(template.innerHTML)}) 
@@ -19,23 +20,50 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const App = {
     processTemplates() {
-      filters.insertAdjacentHTML('beforeend',
+      filters.insertAdjacentHTML('afterbegin',
         templates.filter(template => template.id === 'filters_template')[0].text(this.generateCarInfoContext()));
       inventory.insertAdjacentHTML('beforeend',
-        templates.filter(template => template.id === 'inventory_template')[0].text({cars: cars}));
+        templates.filter(template => template.id === 'inventory_template')[0].text({cars: this.filteredCars}));
+
+    },
+    assignFilters(cars) {
+      filters.insertAdjacentHTML('afterbegin',
+        templates.filter(template => template.id === 'filters_template')[0].text(this.generateCarInfoContext()));
+    },
+
+    printInventory(cars) {
+      inventory.replaceChildren();
+      inventory.insertAdjacentHTML('beforeend',
+        templates.filter(template => template.id === 'inventory_template')[0].text({cars: this.filteredCars}));
+    },
+
+    filterCars(make, model, price, year) {
+      return cars.filter(car => {
+        return (!make || car.make === make)  &&
+          (!model || car.model === model) &&
+          (!price || car.price === parseInt(price, 10)) &&
+          (!year || car.year === parseInt(year, 10));
+      });
+    },
+
+    resetCarFilter() {
+      this.filteredCars = this.cars;
+    },
+
+    handleFilterBtnClick() {
+      let make = document.getElementById('make_select').value;
+      let model = document.getElementById('model_select').value;
+      let price = document.getElementById('price_select').value;
+      let year = document.getElementById('year_select').value;
+      this.filteredCars = this.filterCars(make, model, price, year);
+      this.printInventory();
+      this.resetCarFilter();
 
     },
 
-    generateCarInfoContext() {
-      // let makes = cars.reduce((acc, car) => {
-      //   if (!acc.includes(car.make)) {
-      //     acc.push(car.make);
-      //     return acc;
-      //   }
-      //   return acc;
-      // }, []);
 
-      let carInfo = cars.reduce((acc, car) => {
+    generateCarInfoContext() {
+      let carInfo = this.filteredCars.reduce((acc, car) => {
         for (let prop in car) {
           if (!acc[prop]) {
             acc[prop] = [car[prop]];
@@ -45,22 +73,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         return acc;
       }
-
       , {});
-
-      //let models = [];
-      //let years = [];
-      //let prices = [];
-
-      console.log(carInfo);
       return carInfo;
     },
 
     init(cars) {
       this.cars = cars;
-      this.processTemplates();
+      this.filteredCars = cars;
+      //this.processTemplates();
+      this.assignFilters();
+      this.printInventory(cars);
+      filterBtn.addEventListener('click', this.handleFilterBtnClick.bind(this));
     },
   };
   Object.create(App).init(cars);
-
 });

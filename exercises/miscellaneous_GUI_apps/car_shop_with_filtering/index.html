@@ -11,7 +11,10 @@
 <body>
   <header>
     <h1>Buy Used Cars</h1>
-    <div id='filters'>
+    <div id='nav'>
+      <div id='filters'>
+      </div>
+      <a id='filter_button'>filter</a>
     </div>
   </header>
   <main>
@@ -48,8 +51,6 @@
       <option value='{{this}}'>{{this}}</option>
       {{/each}}
     </select>
-    <a id='filter_button'>Filter</a>
-
   </script>
   <script id='inventory_template' type='text/x-handlebars-template'>
     {{#each cars}}
