@@ -4,7 +4,6 @@ html{
   display: block;
   box-sizing: border-box;
   font-family: serif;
-  font-weight: bold;
 }
 
 body {
@@ -14,6 +13,20 @@ body {
 
 h1 {
   font-size: 3em;
+  font-weight: bold;
+}
+
+b {
+  font-weight: bold;
+}
+
+u {
+  text-decoration: underline;
+}
+
+i {
+  font-style: italic;
+
 }
 
 h1#site_title {
@@ -34,6 +47,10 @@ h1#site_title {
   padding: 5px;
   background: #cecece;
 
+}
+
+.highlight {
+  background: #fff;
 }
 
 #controls i {
