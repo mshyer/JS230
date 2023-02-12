@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Validating Form</title>
+  <meta charset="utf-8" />
+  <link rel='stylesheet' type='text/css' href='stylesheets/p1.css' />
+</head>
+<body>
+  <form id='registration_form' novalidate>
+    <p id='form-errors'></p>
+    <div class='input-field'>
+      <label for='first_name'>First Name</label>
+      <input type='text' name='first_name' id='first_name' required />
+      <p class='error-message'></p>
+    </div>
+    <div class='input-field'>
+      <label for='last_name'>Last Name</label>
+      <input type='text' name='last_name' id='last_name' required/>
+      <p class='error-message'></p>
+    </div>
+    <div class='input-field'>
+      <label for='email'>Email</label>
+      <input type='email' id='email' name='email' pattern=".+@.+" required/>
+      <p class='error-message'></p>
+    </div>
+    <div class='input-field'>
+      <label for='password'>Password</label>
+        <input type='password' minlength='10' name='password' id='password' required/>
+      <p class='error-message'></p>
+    </div>
+    <div class='input-field'>
+      <label for='phone_number'>Phone Number</label>
+        <input type='tel' name='phone_number' pattern="\d{3}-\d{3}-\d{4}" id='phone_number'/>
+      <p class='error-message'></p>
+    </div>
+    <div class='input-field'>
+      <label>Credit Card</label>
+      <input type='text' id='cd1' maxlength = '4'> <span>-</span>
+      <input type='text' id='cd2' maxlength = '4'> <span>-</span>
+      <input type='text' id='cd3' maxlength = '4'> <span>-</span>
+      <input type='text' id='cd4' maxlength = '4'> <span>-</span>
+      <p class='error-message'></p>
+
+    </div>
+    <button type='submit' id='sign_up_button'>Sign Up</button>
+  </form>
+  <script src='javascripts/p2.js'></script>
+</body>
+</html>
