@@ -1,0 +1,27 @@
+
+input:invalid {
+  border: 1px solid red;
+}
+
+input:valid {
+  border: 1px solid green;
+}
+
+.input-field {
+  display: block;
+}
+.input-field label {
+  display: block;
+}
+input-field input {
+  display: inline-block;
+}
+
+.error-message {
+  display: none;
+  color: red;
+}
+
+.active.error-message {
+  display: inline-block;
+}

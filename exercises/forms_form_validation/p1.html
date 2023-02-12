@@ -3,24 +3,38 @@
 <head>
   <title>Validating Form</title>
   <meta charset="utf-8" />
-  <link rel='stylesheet' type='text/css' href='' />
+  <link rel='stylesheet' type='text/css' href='stylesheets/p1.css' />
 </head>
 <body>
-  <form id='registration_form'>
-    <label for='first_name'>First Name</label>
-    <input type='text' name='first_name' id='first_name'/>
-    <label>Last Name
-      <input type='text' name='last_name' id='last_name'/></label>
-    <label for='email'>Email</label>
-    <input type='email' id='email' name='email'/>
-    <label for='password'>Password
-      <input type='password' minlength='10' name='password' id='password'/>
-    </label>
-    <label for='phone_number'>Phone Number
-      <input type='tel' name='phone_number' id='phone_number'/>
-    </label>
+  <form id='registration_form' novalidate>
+    <p id='form-errors'></p>
+    <div class='input-field'>
+      <label for='first_name'>First Name</label>
+      <input type='text' name='first_name' id='first_name' required />
+      <p class='error-message'></p>
+    </div>
+    <div class='input-field'>
+      <label for='last_name'>Last Name</label>
+      <input type='text' name='last_name' id='last_name' required/>
+      <p class='error-message'></p>
+    </div>
+    <div class='input-field'>
+      <label for='email'>Email</label>
+      <input type='email' id='email' name='email' pattern=".+@.+" required/>
+      <p class='error-message'></p>
+    </div>
+    <div class='input-field'>
+      <label for='password'>Password</label>
+        <input type='password' minlength='10' name='password' id='password' required/>
+      <p class='error-message'></p>
+    </div>
+    <div class='input-field'>
+      <label for='phone_number'>Phone Number</label>
+        <input type='tel' name='phone_number' pattern="\d{3}-\d{3}-\d{4}" id='phone_number'/>
+      <p class='error-message'></p>
+    </div>
     <button type='submit' id='sign_up_button'>Sign Up</button>
   </form>
-  <script src='javascripts/validate.js'></script>
+  <script src='javascripts/validateRefactor.js'></script>
 </body>
 </html>
