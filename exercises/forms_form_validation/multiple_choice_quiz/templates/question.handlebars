@@ -1,0 +1,10 @@
+<div class='question_box' data-id='{{id}}'>
+  <h2 class='description'>Q{{id}}. {{description}}</h2>
+    {{#each options}}
+    <label>
+      <input type='radio' name='{{../id}}' value='{{this}}' >
+      {{this}}
+    </label>
+    {{/each}}
+  <p class='result' data-id='{{id}}'></p>
+</div>

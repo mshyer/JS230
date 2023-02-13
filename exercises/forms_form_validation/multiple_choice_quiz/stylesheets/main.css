@@ -1,0 +1,46 @@
+@import url('whitespace-reset.css');
+
+html {
+  display: block;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+body {
+  background: #eee9ce;
+  margin: 10px;
+}
+
+h1 {
+  font-size: 2em;
+  font-weight: bold;
+}
+label {
+  display: block;
+  margin: 5px;
+}
+
+input[type="radio"] {
+  
+}
+
+.result {
+  display: none;
+}
+.result.correct {
+  border: 1px solid green;
+  display: block;
+}
+
+.result.incorrect {
+  border: 1px solid red;
+  display: block;
+}
+
+.result {
+  display: none;
+}
+
+.active {
+  background: #55ec39;
+}
